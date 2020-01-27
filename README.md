@@ -20,6 +20,12 @@ ___
 
 ### Relations entrantes
 
+### Relations sortantes
+
+### Filtrage sur les types de relations entrantes
+
 ### Filtrage sur les types de relations sortantes
+
+### Responsive : Exemple sur iPad Pro
 
 ___
