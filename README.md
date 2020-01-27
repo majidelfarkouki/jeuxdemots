@@ -17,7 +17,7 @@ ___
 ## <a name="screenshots"></a>Screenshots
 
 ### Définitions
-	![](./images/10.PNG)
+	![](./images/10.png)
 ### Relations entrantes
 	![](./images/11.PNG)
 ### Relations sortantes
