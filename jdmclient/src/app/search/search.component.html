@@ -3,44 +3,48 @@
    <!-- card -->
    <div class="card card-table mg-t-20 mg-sm-t-30">
       <!-- card-header -->
-        <div class="card card-dash-chart-one ">
-          <div class="row no-gutters">
-             <div class="col-lg-6">
-                <div class="left-panel" id="info">
-                   <nav class="nav">
-                      <a href="#" class="nav-link active">Jeux de mots</a>
-                   </nav>
-                   <div class="active-visitor-wrapper">
-                      <div class="ui-inputgroup">
-       <p-autoComplete [(ngModel)]="term" [suggestions]="filteredTermsSuggestions" (completeMethod)="filterTermSuggestion($event)" field="word" [size]="25"
-       placeholder="Terme à rechercher..." [minLength]="1" (keyup.enter)="search()"></p-autoComplete>&nbsp;
-       <button pButton type="button" label="Chercher" class="ui-button-info" (click)="search()"></button>
-                      </div>
-                   </div>
-                   <!-- active-visitor-wrapper -->
-                </div>
-                <!-- left-panel -->
-             </div>
-             <!-- col-4 -->
-             <div class="col-lg-6">
-                <div class="right-panel">
-                   <h6 class="slim-card-title">Options</h6>
-                   <div class="form-group form-check">
-                      <input type="checkbox" class="form-check-input" id="isShownIncomings" name="isShownIncomings" (click)="incomingsclick()">
-                      <label class="form-check-label" for="incomingsvisibility">Pas de relations entrantes</label>
-                   </div>
-                   <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="isShownOutgoings" name="isShownOutgoings" (click)="outgoingsclick()">
-                    <label class="form-check-label" for="relout">Pas de relations sortantes</label>
-                 </div>
-                </div>
-                <!-- right-panel -->
-             </div>
-             <!-- col-8 -->
-          </div>
-          <!-- row -->
-       </div>
-        
+      <div class="card card-dash-chart-one ">
+         <div class="row no-gutters">
+            <div class="col-lg-6">
+               <div class="left-panel" id="info">
+                  <nav class="nav">
+                     <a href="#" class="nav-link active">Jeux de mots</a>
+                  </nav>
+                  <div class="active-visitor-wrapper">
+                     <div class="ui-inputgroup">
+                        <p-autoComplete [(ngModel)]="term" [suggestions]="filteredTermsSuggestions" (completeMethod)="filterTermSuggestion($event)" field="word" [size]="25"
+                        placeholder="Entrez le Terme à rechercher" [minLength]="1" (keyup.enter)="search()"></p-autoComplete>&nbsp;
+                        <button pButton type="button" label="Chercher" class="ui-button-info" (click)="search()"></button>
+                     </div>
+                  </div>
+                  <!-- active-visitor-wrapper -->
+               </div>
+               <!-- left-panel -->
+            </div>
+            <!-- col-4 -->
+            <div class="col-lg-6">
+               <div class="right-panel">
+                  <h6 class="slim-card-title">Options</h6>
+                  <div class="form-group">
+                     <label>Num&eacute;ro de relation</label>
+                     <input id="rel" type="text" class="form-control" name="rel" size=10
+                        placeholder="Entrez le numéro de la relation">
+                  </div>
+                  <div class="form-group form-check">
+                     <input type="checkbox" class="form-check-input" id="isShownIncomings" name="isShownIncomings" (click)="incomingsclick()">
+                     <label class="form-check-label" for="incomingsvisibility">Pas de relations entrantes</label>
+                  </div>
+                  <div class="form-group form-check">
+                     <input type="checkbox" class="form-check-input" id="isShownOutgoings" name="isShownOutgoings" (click)="outgoingsclick()">
+                     <label class="form-check-label" for="relout">Pas de relations sortantes</label>
+                  </div>
+               </div>
+               <!-- right-panel -->
+            </div>
+            <!-- col-8 -->
+         </div>
+         <!-- row -->
+      </div>
    </div>
 </div>
 <div class="row" *ngIf="loading_visibility">
@@ -65,10 +69,10 @@
                   <p-tabPanel header="Définitions">
                      <h4 *ngIf="definitions?.length < 1; else definition_content" style="text-align: center;">Aucune définition transmise</h4>
                      <ng-template #definition_content>
-                      <div class="alert alert-warning" role="alert">
-                        <h4 style="text-align: center;">{{ real_term }}</h4>
-                      </div>
-                      </ng-template>
+                        <div class="alert alert-primary" role="alert">
+                           <h4 style="text-align: center;">{{ real_term }}</h4>
+                        </div>
+                     </ng-template>
                      <ol>
                         <li *ngFor="let definition of definitions" innerHTML="{{ definition.def }}"></li>
                      </ol>
@@ -77,17 +81,14 @@
                   <p-tabPanel header="Relations entrantes"  *ngIf="isShownIncomings">
                      <h4 *ngIf="empty_incomings; else incomings_content" style="text-align: center;">Aucune relation entrante</h4>
                      <ng-template #incomings_content>
-                        <div class="alert alert-warning" role="alert">
-                          <h4 style="text-align: center;">{{ real_term }}</h4>
+                        <div class="alert alert-primary" role="alert">
+                           <h4 style="text-align: center;">{{ real_term }}</h4>
                         </div>
                         <p-dataTable [value]="selectedIncomings" selectionMode="single" [rows]="10" [paginator]="true" [pageLinks]="10" [rowsPerPageOptions]="[5,10,20]" [sortOrder]="sortO" (onSort)="changeSortIncomings($event)" (onRowSelect)="search_link($event)">
                         <p-header>{{ selectedIncomings?.length }} relations entrantes sélectionnées sur {{ incomings?.length }}</p-header>
                         <p-column field="term" header="Terme" [sortable]="true"></p-column>
                         <p-column field="weight" header="Poids" [sortable]="true"></p-column>
-                        <p-column field="type" header="Type" [filter]="true" filterMatchMode="in">
-                           <ng-template pTemplate="filter" let-col>                  
-                              <p-dropdown [options]="incomingsTypes" [style]="{'width':'100%'}" (onChange)="typeIncomingsFilter($event.value)" styleClass="ui-column-filter"></p-dropdown>
-                           </ng-template>
+                        <p-column field="type" header="Type" [sortable]="true">
                         </p-column>
                         </p-dataTable>
                      </ng-template>
@@ -96,17 +97,14 @@
                   <p-tabPanel header="Relations sortantes" *ngIf="isShownOutgoings">
                      <h4 *ngIf="empty_outgoings; else outgoings_content" style="text-align: center;">Aucune relation sortante</h4>
                      <ng-template #outgoings_content>
-                      <div class="alert alert-warning" role="alert">
-                        <h4 style="text-align: center;">{{ real_term }}</h4>
-                      </div>
-                      <p-dataTable [value]="selectedOutgoings" selectionMode="single" [rows]="10" [paginator]="true" [pageLinks]="10" [rowsPerPageOptions]="[5,10,20]" [sortOrder]="sortO" (onSort)="changeSortOutgoings($event)" (onRowSelect)="search_link($event)">
+                        <div class="alert alert-primary" role="alert">
+                           <h4 style="text-align: center;">{{ real_term }}</h4>
+                        </div>
+                        <p-dataTable [value]="selectedOutgoings" selectionMode="single" [rows]="10" [paginator]="true" [pageLinks]="10" [rowsPerPageOptions]="[5,10,20]" [sortOrder]="sortO" (onSort)="changeSortOutgoings($event)" (onRowSelect)="search_link($event)">
                         <p-header>{{ selectedOutgoings?.length }} relations sortantes sélectionnées sur {{ outgoings?.length }}</p-header>
                         <p-column field="term" header="Terme" [sortable]="true"></p-column>
                         <p-column field="weight" header="Poids" [sortable]="true"></p-column>
-                        <p-column field="type" header="Type" [filter]="true" filterMatchMode="in">
-                           <ng-template pTemplate="filter" let-col>                  
-                              <p-dropdown [options]="outgoingsTypes" [style]="{'width':'100%'}" (onChange)="typeOutgoingsFilter($event.value)" styleClass="ui-column-filter" p-tooltip="OK"></p-dropdown>
-                           </ng-template>
+                        <p-column field="type" header="Type" [sortable]="true">
                         </p-column>
                         </p-dataTable>
                      </ng-template>
