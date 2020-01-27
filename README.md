@@ -17,11 +17,11 @@ ___
 ## <a name="screenshots"></a>Screenshots
 
 ### Définitions
-	![](./images/10.png)
+	![](./screenshots/10.PNG)
 ### Relations entrantes
-	![](./images/11.PNG)
+	![](./screenshots/11.PNG)
 ### Relations sortantes
-	![](./images/12.PNG)
+	![](./screenshots/12.PNG)
 ### Responsive : Exemple sur iPad Pro
-	![](./images/13.PNG)
+	![](./screenshots/13.PNG)
 ___
