@@ -1,3 +1,5 @@
+![](screenshots/10.PNG)
+
 # Application "Jeux de mots"
 
 Dépôt du projet E-application : Création d'une application web basée sur le site www.jeuxdemots.org
